@@ -21,6 +21,7 @@ DOCKER_BUILD_IMAGE?=golang:1.16.3
 DOCKER_LINT_IMAGE?=golangci/golangci-lint:v1.27.0
 GOBGP_VERSION=v0.0.0-20210402043138-915bfc2d8189 # v2.26.0
 QEMU_IMAGE?=multiarch/qemu-user-static
+GORELEASER_VERSION=v0.162.1
 ifeq ($(GOARCH), arm)
 FILE_ARCH=ARM
 else ifeq ($(GOARCH), arm64)
@@ -131,7 +132,7 @@ github-release:
 	@echo Starting kube-router GitHub release creation.
 	@[ -n "$(value GITHUB_TOKEN)" ] && \
 	  GITHUB_TOKEN=$(value GITHUB_TOKEN); \
-	  curl -sL https://git.io/goreleaser | VERSION=v0.142.0 bash
+	  curl -sL https://git.io/goreleaser | VERSION=$(GORELEASER_VERSION) bash
 	@echo Finished kube-router GitHub release creation.
 
 release: push-release github-release ## Pushes a release to DockerHub and GitHub
